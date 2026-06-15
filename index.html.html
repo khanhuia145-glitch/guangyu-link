@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>光谕 - GuangYu Trading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0f1e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #a0a7c1;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            color: #ffffff;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .btn-wa {
+            background: #25D366;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        .btn-tg {
+            background: #2AABEE;
+            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 11px;
+            color: #5a5f7a;
+        }
+        .lang-switch {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #a0a7c1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .lang-btn.active {
+            background: #fda085;
+            color: #0a0f1e;
+            border-color: #fda085;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">光谕</div>
+        <div class="subtitle" id="subtitle">AI-Driven Gold Trading | 技术平权</div>
+
+        <a class="btn btn-wa" id="wa-btn" href="https://wa.me/17829074794?text=I%27m+interested+in+GuangYu+EA" target="_blank">
+            💬 WhatsApp
+        </a>
+        <a class="btn btn-tg" id="tg-btn" href="https://t.me/15627598087" target="_blank">
+            ✈️ Telegram
+        </a>
+
+        <div class="lang-switch" id="lang-switch">
+            <button class="lang-btn active" onclick="switchLang('auto')">🌐 Auto</button>
+            <button class="lang-btn" onclick="switchLang('en')">🇺🇸 EN</button>
+            <button class="lang-btn" onclick="switchLang('ko')">🇰🇷 KO</button>
+            <button class="lang-btn" onclick="switchLang('vi')">🇻🇳 VI</button>
+            <button class="lang-btn" onclick="switchLang('ms')">🇲🇾 MS</button>
+        </div>
+
+        <div class="footer">
+            © 2026 GuangYu. Risk Disclosure: Trading involves substantial risk.
+        </div>
+    </div>
+
+    <script>
+        // 多语言文案
+        const texts = {
+            en: {
+                subtitle: "AI-Driven Gold Trading | Technology Equality",
+                wa_text: "💬 WhatsApp",
+                tg_text: "✈️ Telegram",
+                wa_link: "https://wa.me/17829074794?text=Hi%2C+I+want+to+know+more+about+GuangYu+EA",
+                tg_link: "https://t.me/15627598087"
+            },
+            ko: {
+                subtitle: "AI 골드 트레이딩 | 기술 평등",
+                wa_text: "💬 왓츠앱",
+                tg_text: "✈️ 텔레그램",
+                wa_link: "https://wa.me/17829074794?text=안녕하세요%2C+GuangYu+EA에+대해+알고+싶습니다",
+                tg_link: "https://t.me/15627598087"
+            },
+            vi: {
+                subtitle: "Giao Dịch Vàng AI | Bình Đẳng Công Nghệ",
+                wa_text: "💬 WhatsApp",
+                tg_text: "✈️ Telegram",
+                wa_link: "https://wa.me/17829074794?text=T%C3%B4i+mu%E1%BB%91n+bi%E1%BA%BFt+v%E1%BB%81+GuangYu+EA",
+                tg_link: "https://t.me/15627598087"
+            },
+            ms: {
+                subtitle: "Dagangan Emas AI | Kesamarataan Teknologi",
+                wa_text: "💬 WhatsApp",
+                tg_text: "✈️ Telegram",
+                wa_link: "https://wa.me/17829074794?text=Saya+berminat+dengan+GuangYu+EA",
+                tg_link: "https://t.me/15627598087"
+            }
+        };
+
+        // 自动检测浏览器语言并设置
+        function detectLanguage() {
+            const lang = navigator.language || navigator.userLanguage;
+            if (lang.startsWith('ko')) return 'ko';
+            if (lang.startsWith('vi')) return 'vi';
+            if (lang.startsWith('ms') || lang.startsWith('id')) return 'ms'; // 马来语/印尼语
+            return 'en'; // 默认英语
+        }
+
+        let currentLang = detectLanguage();
+
+        function applyLanguage(lang) {
+            if (lang === 'auto') {
+                lang = detectLanguage();
+            }
+            currentLang = lang;
+            const t = texts[lang] || texts['en'];
+
+            document.getElementById('subtitle').textContent = t.subtitle;
+            document.getElementById('wa-btn').textContent = t.wa_text;
+            document.getElementById('wa-btn').href = t.wa_link;
+            document.getElementById('tg-btn').textContent = t.tg_text;
+            document.getElementById('tg-btn').href = t.tg_link;
+
+            // 更新语言切换按钮激活状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(lang.toUpperCase()) || (lang === 'en' && btn.textContent.includes('EN'))) {
+                    btn.classList.add('active');
+                }
+                if (lang === 'auto' && btn.textContent.includes('Auto')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function switchLang(lang) {
+            applyLanguage(lang);
+        }
+
+        // 初始应用
+        applyLanguage('auto');
+    </script>
+</body>
+</html>
